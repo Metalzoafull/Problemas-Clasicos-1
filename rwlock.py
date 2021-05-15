@@ -108,3 +108,11 @@ class RWLock(object):
 
     def w_release(self):
         self.w_lock.release()
+
+#1.B1) cuenta la cantidad de veces que el READ LOCK() fue llamado.
+
+#1.B2) lo obtendra el primero que lo pida, el resto de procesos lectores estaran en estado de espera hasta que sea liberado el w_lock
+
+#1.B3) el proceso lector liberara el w_lock en el proceso r_release, cuando el num_r sea igual a 0 sera en ese entonces que liberara a w_lock
+
+#1.B4) dependeria de quien tome control del w_lock, si los N procesos toman el control primero entonces el proceso escritor tendra que esperar a que todos los N procesos de lectura terminen, debido a que los procesos de lectura tomaran el w_lock y no lo liberaran hasta que se hayan realizado todos los r_release().
