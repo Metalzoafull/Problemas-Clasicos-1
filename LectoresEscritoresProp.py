@@ -4,6 +4,7 @@ import random
 import logging
 import time
 from rwlock import RWLock
+import rwlock
 
 
 
@@ -15,7 +16,8 @@ equipos = ["Boca", "River", "Racing", "Independiente", "San Lorenzo", "Huracán"
 
 partido = ["", 0, "", 0]
 
-rwLock = RWLock()
+rwLock1 = RWLock()
+rwLock2 = rwlock.RWLock
 
 
 def escritor(id):
@@ -29,7 +31,8 @@ def escritor(id):
 
         while equi1 == equi2:
             equi2 = random.randint(0, len(equipos)-1)
-        rwLock.w_acquire()
+        ##rwLock1.w_acquire()
+        rwLock2.w_acquire
 
         try:
             partido[0] = equipos[equi1]
@@ -40,7 +43,8 @@ def escritor(id):
 
         finally:
             ##time.sleep(random.randint(1, 2))
-            rwLock.w_release()
+            ##rwLock1.w_release()
+            rwLock2.w_release
             time.sleep(random.randint(1, 2))
 
 
@@ -50,13 +54,15 @@ def lector(id):
     name = 'Escritor- ' + str(id)
 
     while (True):
-        rwLock.r_acquire()
+        ##rwLock1.r_acquire()
+        rwLock2.r_acquire
         try:
             logging.info(f'{name} el resultado fue: {partido[0]} {partido[1]} - {partido[2]} {partido[3]}')
 
         finally:
             ##time.sleep(random.randint(1, 2))
-            rwLock.r_release()
+            ##rwLock1.r_release()
+            rwLock2.r_release
             time.sleep(random.randint(1, 2))
 
 
