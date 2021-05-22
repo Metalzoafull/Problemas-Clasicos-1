@@ -59,6 +59,9 @@ class listaFinita(list):
             return True
         else:
             return False
+    
+    def isEmpty(self):
+        return len(self) == 0
 
 
 
@@ -91,7 +94,7 @@ class Consumidor(threading.Thread):
         while True:
             self.lockVacio.acquire()
             try:
-                while len(self.lista) == 0:
+                while self.lista.isEmpty():
                     pass
                 elemento = self.lista.pop(0)
                 logging.info(f'consumio el item {elemento}')
